@@ -26,7 +26,8 @@ The neural network consists of:
 
 ## Usage
 The entire architecture is contained within a single, highly commented file to maximize readability. 
-
+   
 To run the training loop:
 ```bash
 python Attention.py
+```
