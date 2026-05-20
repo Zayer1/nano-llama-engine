@@ -59,5 +59,39 @@ During backpropagation, the gradient `d_context_vector` is simply sliced back in
 The Causal Mask is an upper-triangular matrix of `-1e9` added to the scores before Softmax. 
 Because it is a static constant matrix with **no learnable parameters**, its derivative is exactly **0**. We completely ignore the mask during the backward pass.
 
----
-*Work in Progress: Layer Normalization and Residual Connections derivations will be added soon.*
+## 7. SwiGLU Activation Derivatives
+The SwiGLU Feed-Forward network introduces a Swish-activated gate:
+`Z_gate = X @ W_gate + b_gate`
+`S_gate = Sigmoid(Z_gate)`
+`A_gate = Z_gate * S_gate`
+
+And the element-wise multiplication core:
+`Merged = A_gate * Z_up`
+
+During backpropagation, we use the product rule to split the `Merged` error into the two pathways:
+`d_Z_up = d_Merged * A_gate`
+`d_A_gate = d_Merged * Z_up`
+
+## 8. Layer Normalization (Pre-LN)
+Layer Normalization forces the variance of features to 1.0 and mean to 0.0 before Attention.
+`x_norm = (x - mean) / std`
+`out = gamma * x_norm + beta`
+
+Because `x` splits into three paths (`x_norm`, `var`, `mean`), we must derive all three pathways and sum them:
+1. **Direct Path (via `x_norm`):** 
+   `d_x_norm = d_out * gamma`
+2. **Variance Path:** 
+   `d_var = sum(d_x_norm * -0.5 * x_norm / std^2)`
+3. **Mean Path:** 
+   `d_mean = sum(d_x_norm * -1 / std)`
+
+**The Total Derivative for Input X:**
+By applying the Chain Rule across all three bridges, we merge the gradients:
+`d_x = d_x_norm * (1/std) + d_mean * (1/N) + d_var * (2 * x_norm * std / N)`
+
+## 9. Variance Scaling (Xavier Initialization)
+When generating random weight matrices from a standard normal distribution (`variance = 1.0`), matrix multiplication causes the variance to grow linearly by the input dimension `N`:
+`Variance(X @ W) = N`
+
+To prevent massive exploding gradients (where `N=4096` would result in NaN), we scale the random weights so the output variance stays strictly at `1.0`. Because variance scales quadratically, we divide the numbers by the square root of `N`:
+`W = np.random.randn(...) / np.sqrt(N)`

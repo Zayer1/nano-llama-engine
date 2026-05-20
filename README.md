@@ -17,27 +17,39 @@ The initial implementation (`01_single_head.py`) focused on proving the core cal
 
 ## Phase 2: Scaling to a GPT Architecture
 The secondary implementation (`02_multi_heads.py`) upgrades the foundation into a true Generative Transformer Block by introducing parallel processing and time-awareness:
-1. **Multi-Head Attention:** Splitting the embedding dimension into parallel "brains" to learn specialized syntactic and semantic relationships (e.g., Head 1 focusing on Position, Head 2 focusing on Nouns). The gradients are manually sliced and recombined along the feature axis (`axis=-1`) during backpropagation.
-2. **Learned Positional Encodings:** Mimicking OpenAI's GPT design philosophy by relying on pure gradient descent to learn absolute position (`E[token] + P`), rather than hardcoding static Sine/Cosine formulas.
-3. **Causal Masking (The Blindfold):** Generating an upper-triangular matrix (`np.triu`) of Negative Infinity (`-1e9`) to prevent the AI from "cheating" by looking into the future. This mathematically forces the Softmax function (`e^-infinity`) to deterministically crush future probabilities to `0.000`.
+1. **Multi-Head Attention:** Splitting the embedding dimension into parallel "brains" to learn specialized syntactic and semantic relationships. 
+2. **Learned Positional Encodings:** Mimicking OpenAI's GPT design philosophy by relying on pure gradient descent to learn absolute position (`E[token] + P`).
+3. **Causal Masking (The Blindfold):** Generating an upper-triangular matrix of Negative Infinity (`-1e9`) to mathematically force Softmax to crush future probabilities to `0.000`.
+
+## Phase 3: Commercial Stabilization & Non-Linearity
+The final implementation (`03_ffn.py`) replaces the rudimentary multi-head mechanism with a mathematically complete, commercially stable Transformer architecture mirroring modern setups:
+1. **SwiGLU Feed-Forward Network:** Replaced standard ReLU layers with a Swish-Gated Linear Unit (SwiGLU). This provides deep non-linear computing power by gating standard representations (`W_up`) with a Swish-activated pathway (`W_gate`).
+2. **Pre-Layer Normalization (Pre-LN):** Implemented manual forward and backward LayerNorm to prevent variance explosions in deep networks. The manual backpropagation derives the gradients for the dynamic shift (`beta`), scale (`gamma`), and routes blame accurately through the variance and mean tensors.
+3. **Xavier / He Initialization:** Scaled all normally distributed `np.random.randn()` weight matrices by the square root of their input dimensions (`1 / np.sqrt(N)`) to ensure variance holds at `1.0` through successive dot products.
 
 ## Architecture Summary
 The final Neural Network consists of:
 * Trainable Vocabulary & Positional Embedding Matrices (`E`, `P`)
 * A Causal Mask (`-1e9` upper triangle)
-* A Multi-Head Self-Attention Layer (`W_q`, `W_k`, `W_v`)
-* A Feed-Forward Hidden Layer (`W1`, `b1`)
-* A Softmax Output Layer (`W2`, `b2`) trained via Categorical Cross-Entropy.
+* Pre-Layer Normalization (`gamma`, `beta`)
+* Multi-Head Self-Attention Layer (`W_q`, `W_k`, `W_v`)
+* SwiGLU Feed-Forward Hidden Layer (`W_gate`, `W_up`, `W_down`)
+* A Language Modeling Output Head (`W_lm`) trained via Categorical Cross-Entropy.
 
 ## Usage
 The architecture is split into heavily commented, pedagogical steps to maximize readability. 
-   
+
 To run the Phase 1 training loop:
 ```bash
 python core/01_single_head.py
 ```
 
-To run the Phase 2 training loop (Full Transformer):
+To run the Phase 2 training loop:
 ```bash
 python core/02_multi_heads.py
+```
+
+To run the Phase 3 training loop (Complete Architecture):
+```bash
+python core/03_ffn.py
 ```

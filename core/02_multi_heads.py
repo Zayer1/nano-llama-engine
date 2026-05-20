@@ -1,7 +1,7 @@
 import numpy as np
 
 np.random.seed(42)
-lr = 0.1
+lr = 0.001
 
 # ==========================================
 # 1. THE DATA PIPELINE (Your Code)
@@ -140,7 +140,7 @@ for epoch in range(1000):
     #Backpropagation
     #dZ2 = dL/dZ = dL/dA * dA/dZ
     #dZ2 = -(target*(1/(A2 + 1e-9)) + (1-target)* (-1/(1-A2+1e-9))) * (A2*(1-A2))
-    dZ2 = A2 - target # (1, 5) - Scalar -> Shape: (1, 5)
+    dZ2 = A2 - target # (1, 5) - (1, 5) -> Shape: (1, 5)
 
     #dW2 = dL/dW2 = dL/dZ2 * dZ2/dW2
     dW2 = A1.T @ dZ2 # (5, 1) @ (1, 5) -> Shape: (5, 5)
@@ -153,7 +153,7 @@ for epoch in range(1000):
 
     #dW1 = dL/dW1 = dL/dZ1 * dZ1/dW1
     #dZ1/dW1 = sentence_vector
-    dW1 = sentence_vector.T @ dZ1 # (3, 1) @ (1, 5) -> Shape: (3, 5)
+    dW1 = sentence_vector.T @ dZ1 # (6, 1) @ (1, 5) -> Shape: (6, 5)
 
     #db1 = dL/db1 = dL/dZ1 * dZ1/db1
     #dZ1/db1 = 1
