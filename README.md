@@ -15,3 +15,10 @@ In Volume 1, we build the Transformer block (Self-Attention, SwiGLU, Pre-LayerNo
 In Volume 2, we take the mathematical intuition proven in Volume 1 and translate the exact same architecture into PyTorch's `nn.Module`. Here we introduce production-grade components like the Adam optimizer, batched data processing, Residual Connections, and KV Caching to train a functional "NanoGPT".
 
 [Go to Volume 2 ->](volume_2_pytorch_automaton/)
+
+## [Volume 3: The Inference Engine](volume_3_inference_engine/README.md)
+*Giving the Automaton a voice.*
+
+In Volume 3, we write the generation loop. We transition the model from "training mode" into a fully autonomous text generator, handling token decoding, temperature scaling, and context window sliding so the model can talk back.
+
+*(In Progress)*
