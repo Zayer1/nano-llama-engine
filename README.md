@@ -1,7 +1,7 @@
 # The Nano-Llama Engine
 *A 110K Parameter Autoregressive Character-Level Language Model built from absolute scratch.*
 
-![GitHub last commit](https://img.shields.io/github/last-commit/username/nano-llama-engine)
+![GitHub last commit](https://img.shields.io/github/last-commit/Zayer1/nano-llama-engine)
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0-red)
 
