@@ -1,12 +1,8 @@
 import torch
 import torch.nn.functional as F
-import importlib
 
 # Import the architecture we just built!
-nano = importlib.import_module("01_nano_gpt")
-NanoGPT = nano.NanoGPT
-vocab = nano.vocab
-max_context_window = nano.max_context_window
+from nano_gpt import NanoGPT, vocab, max_context_window
 
 # =============================================================
 # HYPERPARAMETERS
@@ -157,3 +153,7 @@ for iter in range(max_iters):
     optimizer.step()
 
 print("Training complete")
+
+# Save the trained brain (weights) so we can load it in Volume 3!
+torch.save(model.state_dict(), 'nano_gpt.pth')
+print("Model saved to nano_gpt.pth")

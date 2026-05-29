@@ -374,6 +374,31 @@ class NanoGPT(nn.Module):
             
         return logits, loss
 
+    @torch.no_grad()
+    def generate(self, idx, max_new_tokens):
+        # idx is (Batch, Time) array of indices in the current context
+        for _ in range(max_new_tokens):
+            # Crop idx to the max_context_window so position embeddings/RoPE don't overflow
+            idx_cond = idx[:, -max_context_window:]
+            
+            # Get the predictions
+            logits, _ = self(idx_cond)
+            
+            # Focus only on the last time step
+            logits = logits[:, -1, :] # becomes (Batch, Vocab_Size)
+            
+            # Apply softmax to get probabilities
+            probs = F.softmax(logits, dim=-1)
+            
+            # Sample from the distribution (or we could just use argmax for greedy)
+            # Let's use argmax (greedy decoding) since our model is very small and trained on a tiny string
+            idx_next = torch.argmax(probs, dim=-1, keepdim=True) # (Batch, 1)
+            
+            # Append sampled index to the running sequence
+            idx = torch.cat((idx, idx_next), dim=1) # (Batch, Time+1)
+            
+        return idx
+
 class CausalSelfAttention(nn.Module):
     def __init__(self, embedding_dim, num_heads, max_context_window):
         super().__init__()
