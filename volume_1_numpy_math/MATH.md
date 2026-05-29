@@ -95,3 +95,50 @@ When generating random weight matrices from a standard normal distribution (`var
 
 To prevent massive exploding gradients (where `N=4096` would result in NaN), we scale the random weights so the output variance stays strictly at `1.0`. Because variance scales quadratically, we divide the numbers by the square root of `N`:
 `W = np.random.randn(...) / np.sqrt(N)`
+
+## 10. Modern LLM Variance (SwiGLU & 0.02 Initialization)
+
+The reason we apply a Gaussian initialization with `mean = 0.0` and `std = 0.02` is crucial for network stability. If we initiate weights as exactly `0`, that is a dead end for the entire neuron. However, if we apply a random number and that number is too high, we instantly expose the network to a potential `NaN` or gradient explosion. Thus, we initialize at `0.0` with a standard deviation of `0.02` to ensure there is safe "wiggle room" initially.
+
+The choice of `0.02` is not random. It is mathematically derived by comparing modern activations against traditional weight normalization methods:
+
+### Traditional Methods (Xavier vs. Kaiming)
+Traditionally, there are two primary methods for weight initialization:
+1. **Xavier (Glorot):** Designed for `tanh` and `sigmoid`. It automatically scales the standard deviation to `sqrt(2 / (N_in + N_out))`. In a random initiation, the gradients deviate at the rate of `1 / sqrt(d_in)`.
+2. **Kaiming (He):** Designed for `ReLU` and `GELU`. Because `ReLU` mercilessly cancels out half the variance (everything below 0), the initialization variance must be doubled to keep the signal from collapsing in deep layers (which would shrink the gradients and impact the neurons). This scales the standard deviation to `1.414 / sqrt(d_in)`.
+
+### Deriving the SwiGLU Variance
+SwiGLU operates differently: `SwiGLU(x) = (Swish(xW_gate) * xW_up)W_down`
+
+Let `A = Swish(xW_gate)` and `B = xW_up`. Assuming a variance of `1.0` and a mean of `0.0`:
+* `Var(B) = d * W_deviation^2`
+* `Var(A) = 0.5 * d * W_deviation^2`
+
+Because SwiGLU multiplies these together element-wise (`A * B`), the variance scales quadratically:
+`Var(A * B) = Var(A) * Var(B)`
+`Var(A * B) = (0.5 * d * W_deviation^2) * (d * W_deviation^2)`
+`Var(SwiGLU) = 0.5 * d^2 * W_deviation^4`
+
+If we want to preserve a clean variance of exactly `1.0` (`Var(SwiGLU) = 1`), we solve for `W_deviation`:
+`1 = 0.5 * d^2 * W_deviation^4`
+`W_deviation = 1.189 / sqrt(d)`
+
+Comparing the three:
+* **Glorot:** `1.000 / sqrt(d)`
+* **Kaiming:** `1.414 / sqrt(d)`
+* **SwiGLU:** `1.189 / sqrt(d)`
+
+From this, one might conclude that Glorot is the closest and safest traditional method for SwiGLU.
+
+### Why Modern LLMs Hardcode 0.02
+Modern Large Language Models bypass all three of these dynamic calculations and instead settle for a hardcoded `0.02`. 
+
+They can do this because of a massive architectural safeguard: **Pre-Layer Normalization (RMSNorm)**. Layer Normalization is placed directly *before* the feed-forward network to forcibly reset the variance of the incoming input back to `1.0`, ensuring there is no compounding deviation occurred in previous layers.
+
+With the incoming variance safely locked at `1.0`, let's plug the hidden dimension (`d`) of modern foundational models (like LLaMA 2 (7B) or LLaMA 3 (8B)) into our derived SwiGLU equation. These models have a hidden dimension of `d = 4096`.
+
+`W_deviation = 1.189 / sqrt(4096)`
+`W_deviation = 1.189 / 64`
+`W_deviation = 0.01857`
+
+This number is extremely close to `0.02`. Systems Engineers picked **0.02** because it is the cleanest, fastest rounded number that provides perfect variance stabilization for massive-scale architectures.

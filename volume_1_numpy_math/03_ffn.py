@@ -31,7 +31,8 @@ embedding_dim = 6 #we update this to 6
 # Position 1 gets its own vector, Position 2 gets its own vector, etc.
 # Instead of hard-coding these vectors using complex math (like the original paper), 
 # we start them as random numbers and let the calculus figure out the optimal values!
-P = np.random.randn(len(sentence),embedding_dim)
+MAX_CONTEXT_WINDOW = 10
+P = np.random.randn(MAX_CONTEXT_WINDOW, embedding_dim)
 
 # ==========================================
 # THE CAUSAL MASK (The "Blindfold")
@@ -47,6 +48,8 @@ P = np.random.randn(len(sentence),embedding_dim)
 # Later, when Softmax processes this mask, the math of e^(-infinity) will crush all future 
 # probabilities down to exactly 0.000%, physically making it impossible for the AI to "see" ahead.
 mask = np.triu(np.ones((len(sentence), len(sentence))), k = 1) * -1e9
+#We can use np.inf, mathematically that'd be the same, however when we deal with computer
+#calculation, that infinity might cause NaN when applied.
 
 num_heads = 2 #we're building 2 parallel heads
 head_dim = embedding_dim // num_heads #Each head gets 3 dimensions
@@ -58,12 +61,36 @@ E = np.random.randn(vocab_size, embedding_dim)
 # ==========================================
 
 def sigmoid(z):
+    """
+    Applies the Sigmoid activation function.
+    Math: f(z) = 1 / (1 + e^(-z))
+    
+    Parameters:
+    z : np.ndarray
+        The input tensor (e.g., Z_gate).
+        
+    Returns:
+    np.ndarray
+        The activated output, with values bound between 0 and 1. Same shape as z.
+    """
     # Cap the values between -500 and 500 to prevent exp() overflows
     z_safe = np.clip(z, -500, 500)
     return 1 / (1 + np.exp(-z_safe))
 
 
 def softmax(z):
+    """
+    Applies the Softmax function to convert raw scores into a probability distribution.
+    Math: f(z_i) = e^(z_i) / Σ(e^(z_j))
+    
+    Parameters:
+    z : np.ndarray
+        The input raw scores (e.g., attention scores or logits). Shape: (..., N)
+        
+    Returns:
+    np.ndarray
+        The probability distribution where the sum across the last axis is 1.0. Same shape as z.
+    """
     # Subtract the maximum value from every row to prevent np.exp() from blowing up to infinity
     z_shifted = z - np.max(z, axis = -1, keepdims = True)
     exp_z = np.exp(z_shifted)
@@ -82,18 +109,58 @@ beta = np.zeros((1,embedding_dim)) #the reason the dimensions are all 1,embeddin
 #here is so that the layer norm won't calculate the info inside in a dot scale
 #It's simply here to mediatate the informations by scaling, not calculating
 def layernorm_forward(x):
-    #1. Mean
+    """
+    Applies Pre-Layer Normalization to stabilize deep network activations.
+    Math: out = γ * ((x - μ) / √(σ² + ε)) + β
+    
+    Parameters:
+    x : np.ndarray
+        The input tensor to be normalized. Shape: (Sequence_Length, Embedding_Dim)
+        
+    Returns:
+    out : np.ndarray
+        The scaled and shifted normalized output. Shape: (Sequence_Length, Embedding_Dim)
+    x_norm : np.ndarray
+        Cached normalized input for backpropagation. Shape: (Sequence_Length, Embedding_Dim)
+    var : np.ndarray
+        Cached variance (σ²) for backpropagation. Shape: (Sequence_Length, 1)
+    mean : np.ndarray
+        Cached mean (μ) for backpropagation. Shape: (Sequence_Length, 1)
+    """
+    # 1. Calculate Mean (μ): μ = 1/H * Σ x_i
+    # Shape transition: (Seq_Len, Embed_Dim) -> (Seq_Len, 1)
     mean = np.mean(x, axis=-1, keepdims=True)
-    #2. Variance
+    # 2. Calculate Variance (σ²): σ² = 1/H * Σ (x_i - μ)²
+    # Shape transition: (Seq_Len, Embed_Dim) -> (Seq_Len, 1)
     var = np.var(x, axis = -1, keepdims=True)
-    #3. Normalize (adding 1e-5 to prevent dividing by zero)
+    # 3. Normalize (adding 1e-5 to prevent dividing by zero)
     std = np.sqrt(var + 1e-5)
     x_norm = (x - mean) / std
-    #4. Scale and Shift
+    # 4. Scale and Shift
     out = gamma * x_norm + beta
     return out, x_norm, var, mean
 
 def layernorm_backprop(d_out, x_norm, var):
+    """
+    Computes the gradients for Layer Normalization during backpropagation.
+    Calculates the exact total derivative with respect to x, γ, and β.
+    
+    Parameters:
+    d_out : np.ndarray
+        The upstream gradient flowing into the LayerNorm output. Shape: (Seq_Len, Embed_Dim)
+    x_norm : np.ndarray
+        The cached normalized input from the forward pass. Shape: (Seq_Len, Embed_Dim)
+    var : np.ndarray
+        The cached variance from the forward pass. Shape: (Seq_Len, 1)
+        
+    Returns:
+    d_x : np.ndarray
+        The gradient flowing back into the input tensor. Shape: (Seq_Len, Embed_Dim)
+    d_gamma : np.ndarray
+        The gradient for the scale parameter. Shape: (1, Embed_Dim)
+    d_beta : np.ndarray
+        The gradient for the shift parameter. Shape: (1, Embed_Dim)
+    """
     #Read all the way down to see why I already have d_out, it is actually the new
     #sum of d_sentence_embedding
     N = x_norm.shape[-1]
@@ -160,7 +227,8 @@ for epoch in range(1000):
     #    When this new mixed coordinate hits our weight matrix (W_q), the matrix multiplication 
     #    is mathematically capable of separating the massive base number (100) from the tiny 
     #    shift (+1). The network decodes both "What is this word?" and "Where is it?" at the exact same time!
-    sentence_embedding = E[tokens] + P
+    # Note: We slice P[:len(tokens)] so it matches the current sentence length!
+    sentence_embedding = E[tokens] + P[:len(tokens)]
     sentence_embedding_norm, x_norm_ln, var_ln, mean_ln = layernorm_forward(sentence_embedding)
 
     #From that we generate the values for Q, K, V. These are deterministic projections, the weights (W_q, W_k, W_v) are what we randomized
@@ -224,11 +292,27 @@ for epoch in range(1000):
     #We grab the token's representation to predict the next word
     sentence_vector = Z_down[-1:] #(1,6)
 
+    # -------------------------------------------------------------------------
+    # DEBUG: TENSOR SHAPE TRACKER
+    # -------------------------------------------------------------------------
+    DEBUG_SHAPES = True # Set to True to watch the dimensions morph!
+    if epoch == 0 and DEBUG_SHAPES:
+        print("\n--- FORWARD PASS SHAPES ---")
+        print(f"sentence_embedding: {sentence_embedding.shape} | Expected: ({len(sentence)}, {embedding_dim})")
+        print(f"Q, K, V matrices:   {Q.shape} | Expected: ({len(sentence)}, {embedding_dim})")
+        print(f"Split Heads (Q1):   {Q1.shape} | Expected: ({len(sentence)}, {head_dim})")
+        print(f"Attention Scores:   {scores1.shape} | Expected: ({len(sentence)}, {len(sentence)})")
+        print(f"Context Vector:     {context_vector.shape} | Expected: ({len(sentence)}, {embedding_dim})")
+        print(f"SwiGLU Z_gate/up:   {Z_gate.shape} | Expected: ({len(sentence)}, {ffn_hidden_states})  <-- Expansion!")
+        print(f"SwiGLU Z_down:      {Z_down.shape} | Expected: ({len(sentence)}, {embedding_dim})   <-- Compression!")
+        print(f"Sentence Vector:    {sentence_vector.shape} | Expected: (1, {embedding_dim})")
+        print("---------------------------\n")
+
     Z_lm = sentence_vector @ W_lm + b_lm
     A_lm = softmax(Z_lm)
 
     # The Corrected Loss Calculation
-    target = np.array([[0.0,0.0,0.0,1.0,0.0]]) #Shape: (1,5)
+    target = np.array([[0.0,0.0,0.0,0.0,1.0]]) #Shape: (1,5)
 
     loss = -np.sum(target *np.log(A_lm +1e-9))
 
@@ -377,7 +461,7 @@ for epoch in range(1000):
 
     #Every 10 steps printing out progess
     if epoch % 10 == 0:
-        print(f"Epoch {epoch} , Loss {loss:.6f} , Prediction: {A_lm[0][3]:.4f}")
+        print(f"Epoch {epoch} , Loss {loss:.6f} , Prediction: {A_lm[0][4]:.4f}")
 
 print("\nFinal Attention Weights for 'sat':")
 
@@ -391,3 +475,16 @@ print(weights1)
 
 print("\nFinal Attention Weights (Head 2):")
 print(weights2)
+
+# ==========================================
+# 3. EXPORT WEIGHTS FOR INFERENCE
+# ==========================================
+print("\nSaving trained weights to 'weights.npz'...")
+np.savez("weights.npz", 
+         E=E, P=P, gamma=gamma, beta=beta, 
+         W_gate=W_gate, b_gate=b_gate, 
+         W_up=W_up, b_up=b_up, 
+         W_down=W_down, b_down=b_down, 
+         W_lm=W_lm, b_lm=b_lm, 
+         W_q=W_q, W_k=W_k, W_v=W_v)
+print("Done!")
