@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Llama Engine - Showcase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header class="glass-panel">
+            <h1>Nano Llama <span>Engine</span></h1>
+            <p>110K Parameter Autoregressive Character-Level Model</p>
+        </header>
+
+        <div class="main-layout">
+            <!-- Left Side: The Chat Interface -->
+            <section class="chat-section glass-panel">
+                <div class="chat-header">
+                    <h2>Terminal</h2>
+                    <div class="status-indicator">
+                        <span class="dot"></span> Online
+                    </div>
+                </div>
+                
+                <div class="chat-box" id="chatBox">
+                    <div class="message system">
+                        Engine Initialized. Weights Loaded. Awaiting prompt.
+                    </div>
+                    <!-- Messages will be injected here -->
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="promptInput" placeholder="Enter a prompt (e.g., O Romeo)..." autocomplete="off" />
+                    <button id="generateBtn">Generate</button>
+                    <button id="stopBtn" class="danger" style="display: none;">Stop</button>
+                </div>
+            </section>
+
+            <!-- Right Side: The Neural Network Visualizer -->
+            <section class="visualizer-section glass-panel">
+                <div class="visualizer-header">
+                    <h2>Neural Network Thought Visualizer</h2>
+                    <p>Next Token Probabilities (Softmax)</p>
+                </div>
+                
+                <div class="probability-bars" id="probabilityBars">
+                    <!-- Bars injected by JS -->
+                    <div class="empty-state">Waiting for engine to start thinking...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
