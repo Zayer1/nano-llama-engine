@@ -1,0 +1,4 @@
+- [x] Create implementation plan
+- [x] Get user approval
+- [x] Write `manual_b2b_finetune_pipeline.py` with custom PyTorch training loop
+- [x] Verify script logic

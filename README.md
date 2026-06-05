@@ -1,4 +1,4 @@
-# The Nano-Llama Engine
+# The Nano-Llama Engine (MicroLlama-Scratch)
 *A 110K Parameter Autoregressive Character-Level Language Model built from absolute scratch.*
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Zayer1/nano-llama-engine)
@@ -17,9 +17,9 @@ This model implements the core mechanics of modern LLMs (like Llama 3 and GPT-4)
 
 ---
 
-## The 5 Volumes of Progression
+## The 6 Volumes of Progression
 
-This repository is structured educationally into 5 distinct volumes, showing the evolution from raw math to a full web-based Generative AI.
+This repository is structured educationally into 6 distinct volumes, showing the evolution from raw math to a productionized API.
 
 ### [Volume 1: NumPy Math](volume_1_numpy_math/)
 *The fundamental linear algebra and multivariate calculus.*
@@ -40,6 +40,10 @@ We build a dynamic character-level vocabulary and a persistent training loop. Th
 ### [Volume 5: The Showcase Interface](volume_5_showcase/)
 *Visualizing the neural network.*
 A custom Flask API and glassmorphic Web UI. Instead of just printing text to a terminal, this interface dynamically graphs the Softmax probabilities of the neural network's thought process in real-time as it generates text.
+
+### [Volume 6: The Production API](volume_6_production_api/)
+*Containerizing the engine.*
+We wrap the neural network in a production-ready FastAPI server and containerize it using Docker. This demonstrates the ability to transition raw research math into a scalable, deployable cloud architecture.
 
 ---
 

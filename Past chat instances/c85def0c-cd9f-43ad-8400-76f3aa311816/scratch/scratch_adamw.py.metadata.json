@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Created a scratch script to prove the raw math of AdamW perfectly matches the PyTorch abstraction.",
+  "updatedAt": "2026-05-28T12:34:00.177679700Z"
+}

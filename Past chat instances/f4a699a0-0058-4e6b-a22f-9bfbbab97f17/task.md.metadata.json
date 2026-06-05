@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Task tracking for building the manual PyTorch training loop",
+  "updatedAt": "2026-06-03T02:02:37.272293400Z"
+}

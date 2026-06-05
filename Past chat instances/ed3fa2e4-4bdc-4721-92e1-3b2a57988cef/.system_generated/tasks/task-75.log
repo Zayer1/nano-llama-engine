@@ -1,0 +1,143 @@
+
+--- FORWARD PASS SHAPES ---
+sentence_embedding: (3, 6) | Expected: (3, 6)
+Q, K, V matrices:   (3, 6) | Expected: (3, 6)
+Split Heads (Q1):   (3, 3) | Expected: (3, 3)
+Attention Scores:   (3, 3) | Expected: (3, 3)
+Context Vector:     (3, 6) | Expected: (3, 6)
+SwiGLU Z_gate/up:   (3, 12) | Expected: (3, 12)  <-- Expansion!
+SwiGLU Z_down:      (3, 6) | Expected: (3, 6)   <-- Compression!
+Sentence Vector:    (1, 6) | Expected: (1, 6)
+---------------------------
+
+Epoch 0 , Loss 1.516296 , Prediction: 0.2195
+Epoch 10 , Loss 0.003686 , Prediction: 0.9963
+Epoch 20 , Loss 0.001275 , Prediction: 0.9987
+Epoch 30 , Loss 0.000725 , Prediction: 0.9993
+Epoch 40 , Loss 0.000493 , Prediction: 0.9995
+Epoch 50 , Loss 0.000368 , Prediction: 0.9996
+Epoch 60 , Loss 0.000291 , Prediction: 0.9997
+Epoch 70 , Loss 0.000239 , Prediction: 0.9998
+Epoch 80 , Loss 0.000202 , Prediction: 0.9998
+Epoch 90 , Loss 0.000174 , Prediction: 0.9998
+Epoch 100 , Loss 0.000152 , Prediction: 0.9998
+Epoch 110 , Loss 0.000135 , Prediction: 0.9999
+Epoch 120 , Loss 0.000121 , Prediction: 0.9999
+Epoch 130 , Loss 0.000110 , Prediction: 0.9999
+Epoch 140 , Loss 0.000100 , Prediction: 0.9999
+Epoch 150 , Loss 0.000092 , Prediction: 0.9999
+Epoch 160 , Loss 0.000085 , Prediction: 0.9999
+Epoch 170 , Loss 0.000079 , Prediction: 0.9999
+Epoch 180 , Loss 0.000074 , Prediction: 0.9999
+Epoch 190 , Loss 0.000069 , Prediction: 0.9999
+Epoch 200 , Loss 0.000065 , Prediction: 0.9999
+Epoch 210 , Loss 0.000061 , Prediction: 0.9999
+Epoch 220 , Loss 0.000058 , Prediction: 0.9999
+Epoch 230 , Loss 0.000055 , Prediction: 0.9999
+Epoch 240 , Loss 0.000052 , Prediction: 0.9999
+Epoch 250 , Loss 0.000049 , Prediction: 1.0000
+Epoch 260 , Loss 0.000047 , Prediction: 1.0000
+Epoch 270 , Loss 0.000045 , Prediction: 1.0000
+Epoch 280 , Loss 0.000043 , Prediction: 1.0000
+Epoch 290 , Loss 0.000041 , Prediction: 1.0000
+Epoch 300 , Loss 0.000040 , Prediction: 1.0000
+Epoch 310 , Loss 0.000038 , Prediction: 1.0000
+Epoch 320 , Loss 0.000037 , Prediction: 1.0000
+Epoch 330 , Loss 0.000035 , Prediction: 1.0000
+Epoch 340 , Loss 0.000034 , Prediction: 1.0000
+Epoch 350 , Loss 0.000033 , Prediction: 1.0000
+Epoch 360 , Loss 0.000032 , Prediction: 1.0000
+Epoch 370 , Loss 0.000031 , Prediction: 1.0000
+Epoch 380 , Loss 0.000030 , Prediction: 1.0000
+Epoch 390 , Loss 0.000029 , Prediction: 1.0000
+Epoch 400 , Loss 0.000028 , Prediction: 1.0000
+Epoch 410 , Loss 0.000027 , Prediction: 1.0000
+Epoch 420 , Loss 0.000026 , Prediction: 1.0000
+Epoch 430 , Loss 0.000026 , Prediction: 1.0000
+Epoch 440 , Loss 0.000025 , Prediction: 1.0000
+Epoch 450 , Loss 0.000024 , Prediction: 1.0000
+Epoch 460 , Loss 0.000024 , Prediction: 1.0000
+Epoch 470 , Loss 0.000023 , Prediction: 1.0000
+Epoch 480 , Loss 0.000023 , Prediction: 1.0000
+Epoch 490 , Loss 0.000022 , Prediction: 1.0000
+Epoch 500 , Loss 0.000021 , Prediction: 1.0000
+Epoch 510 , Loss 0.000021 , Prediction: 1.0000
+Epoch 520 , Loss 0.000020 , Prediction: 1.0000
+Epoch 530 , Loss 0.000020 , Prediction: 1.0000
+Epoch 540 , Loss 0.000020 , Prediction: 1.0000
+Epoch 550 , Loss 0.000019 , Prediction: 1.0000
+Epoch 560 , Loss 0.000019 , Prediction: 1.0000
+Epoch 570 , Loss 0.000018 , Prediction: 1.0000
+Epoch 580 , Loss 0.000018 , Prediction: 1.0000
+Epoch 590 , Loss 0.000018 , Prediction: 1.0000
+Epoch 600 , Loss 0.000017 , Prediction: 1.0000
+Epoch 610 , Loss 0.000017 , Prediction: 1.0000
+Epoch 620 , Loss 0.000017 , Prediction: 1.0000
+Epoch 630 , Loss 0.000016 , Prediction: 1.0000
+Epoch 640 , Loss 0.000016 , Prediction: 1.0000
+Epoch 650 , Loss 0.000016 , Prediction: 1.0000
+Epoch 660 , Loss 0.000015 , Prediction: 1.0000
+Epoch 670 , Loss 0.000015 , Prediction: 1.0000
+Epoch 680 , Loss 0.000015 , Prediction: 1.0000
+Epoch 690 , Loss 0.000015 , Prediction: 1.0000
+Epoch 700 , Loss 0.000014 , Prediction: 1.0000
+Epoch 710 , Loss 0.000014 , Prediction: 1.0000
+Epoch 720 , Loss 0.000014 , Prediction: 1.0000
+Epoch 730 , Loss 0.000014 , Prediction: 1.0000
+Epoch 740 , Loss 0.000013 , Prediction: 1.0000
+Epoch 750 , Loss 0.000013 , Prediction: 1.0000
+Epoch 760 , Loss 0.000013 , Prediction: 1.0000
+Epoch 770 , Loss 0.000013 , Prediction: 1.0000
+Epoch 780 , Loss 0.000013 , Prediction: 1.0000
+Epoch 790 , Loss 0.000012 , Prediction: 1.0000
+Epoch 800 , Loss 0.000012 , Prediction: 1.0000
+Epoch 810 , Loss 0.000012 , Prediction: 1.0000
+Epoch 820 , Loss 0.000012 , Prediction: 1.0000
+Epoch 830 , Loss 0.000012 , Prediction: 1.0000
+Epoch 840 , Loss 0.000012 , Prediction: 1.0000
+Epoch 850 , Loss 0.000011 , Prediction: 1.0000
+Epoch 860 , Loss 0.000011 , Prediction: 1.0000
+Epoch 870 , Loss 0.000011 , Prediction: 1.0000
+Epoch 880 , Loss 0.000011 , Prediction: 1.0000
+Epoch 890 , Loss 0.000011 , Prediction: 1.0000
+Epoch 900 , Loss 0.000011 , Prediction: 1.0000
+Epoch 910 , Loss 0.000011 , Prediction: 1.0000
+Epoch 920 , Loss 0.000010 , Prediction: 1.0000
+Epoch 930 , Loss 0.000010 , Prediction: 1.0000
+Epoch 940 , Loss 0.000010 , Prediction: 1.0000
+Epoch 950 , Loss 0.000010 , Prediction: 1.0000
+Epoch 960 , Loss 0.000010 , Prediction: 1.0000
+Epoch 970 , Loss 0.000010 , Prediction: 1.0000
+Epoch 980 , Loss 0.000010 , Prediction: 1.0000
+Epoch 990 , Loss 0.000010 , Prediction: 1.0000
+
+Final Attention Weights for 'sat':
+[0.00495305 0.91917902 0.07586793]
+
+Final Attention Weights for 'sat' (Head 2):
+[0.00143203 0.94044973 0.05811824]
+
+Final Attention Weights (Head 1):
+[[1.         0.         0.        ]
+ [0.1341841  0.8658159  0.        ]
+ [0.00495305 0.91917902 0.07586793]]
+
+Final Attention Weights (Head 2):
+[[1.         0.         0.        ]
+ [0.01110689 0.98889311 0.        ]
+ [0.00143203 0.94044973 0.05811824]]
+
+Saving trained weights to 'weights.npz'...
+Done!
+Loading trained weights from 'weights.npz'...
+Weights loaded successfully!
+
+--- INITIATING AUTOREGRESSIVE GENERATION ---
+Prompt: the cat
+Step 1: Generated 'on' -> Current Sequence: the cat on
+Step 2: Generated 'on' -> Current Sequence: the cat on on
+Step 3: Generated 'on' -> Current Sequence: the cat on on on
+Step 4: Generated 'on' -> Current Sequence: the cat on on on on
+Step 5: Generated 'on' -> Current Sequence: the cat on on on on on
+
+Final Generated Output: the cat on on on on on

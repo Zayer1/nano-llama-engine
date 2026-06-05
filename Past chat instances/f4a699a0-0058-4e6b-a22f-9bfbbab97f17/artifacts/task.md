@@ -1,0 +1,6 @@
+- `[x]` Create directory `volume_6_production_api` and copy core files
+- `[x]` Create `requirements.txt`
+- `[x]` Create `Dockerfile`
+- `[x]` Write `README.md`
+- `[x]` Create `main.py` (FastAPI server)
+- `[x]` Verify local execution (API verified via POST request)

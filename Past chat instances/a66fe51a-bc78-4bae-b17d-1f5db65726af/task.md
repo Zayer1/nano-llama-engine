@@ -1,0 +1,6 @@
+- [x] Stage all current files to ensure git safety
+- [x] Create `volume_1_numpy_math` and `volume_2_pytorch_automaton` directories
+- [x] Move existing NumPy code and documentation to `volume_1_numpy_math` using `git mv`
+- [x] Delete empty `core` directory
+- [x] Write new master `README.md` at root
+- [x] Create placeholder script and README in `volume_2_pytorch_automaton`

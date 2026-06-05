@@ -1,0 +1,128 @@
+
+--- FORWARD PASS SHAPES ---
+sentence_embedding: (3, 6) | Expected: (3, 6)
+Q, K, V matrices:   (3, 6) | Expected: (3, 6)
+Split Heads (Q1):   (3, 3) | Expected: (3, 3)
+Attention Scores:   (3, 3) | Expected: (3, 3)
+Context Vector:     (3, 6) | Expected: (3, 6)
+SwiGLU Z_gate/up:   (3, 12) | Expected: (3, 12)  <-- Expansion!
+SwiGLU Z_down:      (3, 6) | Expected: (3, 6)   <-- Compression!
+Sentence Vector:    (1, 6) | Expected: (1, 6)
+---------------------------
+
+Epoch 0 , Loss 1.606793 , Prediction: 0.2005
+Epoch 10 , Loss 0.017358 , Prediction: 0.9828
+Epoch 20 , Loss 0.002041 , Prediction: 0.9980
+Epoch 30 , Loss 0.000932 , Prediction: 0.9991
+Epoch 40 , Loss 0.000574 , Prediction: 0.9994
+Epoch 50 , Loss 0.000404 , Prediction: 0.9996
+Epoch 60 , Loss 0.000307 , Prediction: 0.9997
+Epoch 70 , Loss 0.000245 , Prediction: 0.9998
+Epoch 80 , Loss 0.000203 , Prediction: 0.9998
+Epoch 90 , Loss 0.000172 , Prediction: 0.9998
+Epoch 100 , Loss 0.000149 , Prediction: 0.9999
+Epoch 110 , Loss 0.000130 , Prediction: 0.9999
+Epoch 120 , Loss 0.000116 , Prediction: 0.9999
+Epoch 130 , Loss 0.000104 , Prediction: 0.9999
+Epoch 140 , Loss 0.000094 , Prediction: 0.9999
+Epoch 150 , Loss 0.000086 , Prediction: 0.9999
+Epoch 160 , Loss 0.000079 , Prediction: 0.9999
+Epoch 170 , Loss 0.000073 , Prediction: 0.9999
+Epoch 180 , Loss 0.000068 , Prediction: 0.9999
+Epoch 190 , Loss 0.000063 , Prediction: 0.9999
+Epoch 200 , Loss 0.000059 , Prediction: 0.9999
+Epoch 210 , Loss 0.000056 , Prediction: 0.9999
+Epoch 220 , Loss 0.000052 , Prediction: 0.9999
+Epoch 230 , Loss 0.000049 , Prediction: 1.0000
+Epoch 240 , Loss 0.000047 , Prediction: 1.0000
+Epoch 250 , Loss 0.000044 , Prediction: 1.0000
+Epoch 260 , Loss 0.000042 , Prediction: 1.0000
+Epoch 270 , Loss 0.000040 , Prediction: 1.0000
+Epoch 280 , Loss 0.000039 , Prediction: 1.0000
+Epoch 290 , Loss 0.000037 , Prediction: 1.0000
+Epoch 300 , Loss 0.000035 , Prediction: 1.0000
+Epoch 310 , Loss 0.000034 , Prediction: 1.0000
+Epoch 320 , Loss 0.000033 , Prediction: 1.0000
+Epoch 330 , Loss 0.000031 , Prediction: 1.0000
+Epoch 340 , Loss 0.000030 , Prediction: 1.0000
+Epoch 350 , Loss 0.000029 , Prediction: 1.0000
+Epoch 360 , Loss 0.000028 , Prediction: 1.0000
+Epoch 370 , Loss 0.000027 , Prediction: 1.0000
+Epoch 380 , Loss 0.000026 , Prediction: 1.0000
+Epoch 390 , Loss 0.000025 , Prediction: 1.0000
+Epoch 400 , Loss 0.000025 , Prediction: 1.0000
+Epoch 410 , Loss 0.000024 , Prediction: 1.0000
+Epoch 420 , Loss 0.000023 , Prediction: 1.0000
+Epoch 430 , Loss 0.000023 , Prediction: 1.0000
+Epoch 440 , Loss 0.000022 , Prediction: 1.0000
+Epoch 450 , Loss 0.000021 , Prediction: 1.0000
+Epoch 460 , Loss 0.000021 , Prediction: 1.0000
+Epoch 470 , Loss 0.000020 , Prediction: 1.0000
+Epoch 480 , Loss 0.000020 , Prediction: 1.0000
+Epoch 490 , Loss 0.000019 , Prediction: 1.0000
+Epoch 500 , Loss 0.000019 , Prediction: 1.0000
+Epoch 510 , Loss 0.000018 , Prediction: 1.0000
+Epoch 520 , Loss 0.000018 , Prediction: 1.0000
+Epoch 530 , Loss 0.000017 , Prediction: 1.0000
+Epoch 540 , Loss 0.000017 , Prediction: 1.0000
+Epoch 550 , Loss 0.000017 , Prediction: 1.0000
+Epoch 560 , Loss 0.000016 , Prediction: 1.0000
+Epoch 570 , Loss 0.000016 , Prediction: 1.0000
+Epoch 580 , Loss 0.000016 , Prediction: 1.0000
+Epoch 590 , Loss 0.000015 , Prediction: 1.0000
+Epoch 600 , Loss 0.000015 , Prediction: 1.0000
+Epoch 610 , Loss 0.000015 , Prediction: 1.0000
+Epoch 620 , Loss 0.000014 , Prediction: 1.0000
+Epoch 630 , Loss 0.000014 , Prediction: 1.0000
+Epoch 640 , Loss 0.000014 , Prediction: 1.0000
+Epoch 650 , Loss 0.000014 , Prediction: 1.0000
+Epoch 660 , Loss 0.000013 , Prediction: 1.0000
+Epoch 670 , Loss 0.000013 , Prediction: 1.0000
+Epoch 680 , Loss 0.000013 , Prediction: 1.0000
+Epoch 690 , Loss 0.000013 , Prediction: 1.0000
+Epoch 700 , Loss 0.000012 , Prediction: 1.0000
+Epoch 710 , Loss 0.000012 , Prediction: 1.0000
+Epoch 720 , Loss 0.000012 , Prediction: 1.0000
+Epoch 730 , Loss 0.000012 , Prediction: 1.0000
+Epoch 740 , Loss 0.000012 , Prediction: 1.0000
+Epoch 750 , Loss 0.000011 , Prediction: 1.0000
+Epoch 760 , Loss 0.000011 , Prediction: 1.0000
+Epoch 770 , Loss 0.000011 , Prediction: 1.0000
+Epoch 780 , Loss 0.000011 , Prediction: 1.0000
+Epoch 790 , Loss 0.000011 , Prediction: 1.0000
+Epoch 800 , Loss 0.000011 , Prediction: 1.0000
+Epoch 810 , Loss 0.000010 , Prediction: 1.0000
+Epoch 820 , Loss 0.000010 , Prediction: 1.0000
+Epoch 830 , Loss 0.000010 , Prediction: 1.0000
+Epoch 840 , Loss 0.000010 , Prediction: 1.0000
+Epoch 850 , Loss 0.000010 , Prediction: 1.0000
+Epoch 860 , Loss 0.000010 , Prediction: 1.0000
+Epoch 870 , Loss 0.000010 , Prediction: 1.0000
+Epoch 880 , Loss 0.000009 , Prediction: 1.0000
+Epoch 890 , Loss 0.000009 , Prediction: 1.0000
+Epoch 900 , Loss 0.000009 , Prediction: 1.0000
+Epoch 910 , Loss 0.000009 , Prediction: 1.0000
+Epoch 920 , Loss 0.000009 , Prediction: 1.0000
+Epoch 930 , Loss 0.000009 , Prediction: 1.0000
+Epoch 940 , Loss 0.000009 , Prediction: 1.0000
+Epoch 950 , Loss 0.000009 , Prediction: 1.0000
+Epoch 960 , Loss 0.000008 , Prediction: 1.0000
+Epoch 970 , Loss 0.000008 , Prediction: 1.0000
+Epoch 980 , Loss 0.000008 , Prediction: 1.0000
+Epoch 990 , Loss 0.000008 , Prediction: 1.0000
+
+Final Attention Weights for 'sat':
+[0.0346973  0.70610645 0.25919625]
+
+Final Attention Weights for 'sat' (Head 2):
+[0.08780923 0.70364626 0.20854451]
+
+Final Attention Weights (Head 1):
+[[1.         0.         0.        ]
+ [0.118125   0.881875   0.        ]
+ [0.0346973  0.70610645 0.25919625]]
+
+Final Attention Weights (Head 2):
+[[1.         0.         0.        ]
+ [0.91041219 0.08958781 0.        ]
+ [0.08780923 0.70364626 0.20854451]]

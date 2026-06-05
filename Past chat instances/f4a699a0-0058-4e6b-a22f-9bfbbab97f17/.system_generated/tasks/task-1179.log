@@ -1,0 +1,24 @@
+==================================================
+PROVING LORA PARAMETER REDUCTION
+==================================================
+
+--- LoRALinear Initialization ---
+Base Weight Shape: torch.Size([4096, 4096]) (Frozen: True)
+LoRA A Shape:      torch.Size([8, 4096]) (Trainable: True)
+LoRA B Shape:      torch.Size([4096, 8]) (Trainable: True)
+Rank (r):          8
+Scaling Factor:    2.0
+
+--- Math Breakdown ---
+Parameters in Base Weight Matrix (W): 16,777,216
+Parameters in LoRA Matrices (A + B):  65,536
+Percentage of Trainable Parameters:   0.3906%
+We saved 99.6094% of GPU memory!
+
+[Forward Pass] Input x shape: torch.Size([2, 10, 4096])
+[Forward Pass] Base output shape (x @ W^T + b): torch.Size([2, 10, 4096])
+[Forward Pass] After LoRA A compression shape: torch.Size([2, 10, 8])
+[Forward Pass] After LoRA B decompression shape: torch.Size([2, 10, 4096])
+[Forward Pass] Final combined output shape: torch.Size([2, 10, 4096])
+
+Execution complete. Math holds true.

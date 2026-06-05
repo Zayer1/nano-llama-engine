@@ -1,0 +1,120 @@
+E:\Antigravity\Antigravity\Projects\core\03_ffn.py:64: RuntimeWarning: overflow encountered in exp
+  exp_z = np.exp(z)
+E:\Antigravity\Antigravity\Projects\core\03_ffn.py:65: RuntimeWarning: invalid value encountered in divide
+  return exp_z/np.sum(exp_z, axis = 1, keepdims = True)
+Epoch 0 , Loss nan , Prediction: 0.0000
+Epoch 10 , Loss nan , Prediction: nan
+Epoch 20 , Loss nan , Prediction: nan
+Epoch 30 , Loss nan , Prediction: nan
+Epoch 40 , Loss nan , Prediction: nan
+Epoch 50 , Loss nan , Prediction: nan
+Epoch 60 , Loss nan , Prediction: nan
+Epoch 70 , Loss nan , Prediction: nan
+Epoch 80 , Loss nan , Prediction: nan
+Epoch 90 , Loss nan , Prediction: nan
+Epoch 100 , Loss nan , Prediction: nan
+Epoch 110 , Loss nan , Prediction: nan
+Epoch 120 , Loss nan , Prediction: nan
+Epoch 130 , Loss nan , Prediction: nan
+Epoch 140 , Loss nan , Prediction: nan
+Epoch 150 , Loss nan , Prediction: nan
+Epoch 160 , Loss nan , Prediction: nan
+Epoch 170 , Loss nan , Prediction: nan
+Epoch 180 , Loss nan , Prediction: nan
+Epoch 190 , Loss nan , Prediction: nan
+Epoch 200 , Loss nan , Prediction: nan
+Epoch 210 , Loss nan , Prediction: nan
+Epoch 220 , Loss nan , Prediction: nan
+Epoch 230 , Loss nan , Prediction: nan
+Epoch 240 , Loss nan , Prediction: nan
+Epoch 250 , Loss nan , Prediction: nan
+Epoch 260 , Loss nan , Prediction: nan
+Epoch 270 , Loss nan , Prediction: nan
+Epoch 280 , Loss nan , Prediction: nan
+Epoch 290 , Loss nan , Prediction: nan
+Epoch 300 , Loss nan , Prediction: nan
+Epoch 310 , Loss nan , Prediction: nan
+Epoch 320 , Loss nan , Prediction: nan
+Epoch 330 , Loss nan , Prediction: nan
+Epoch 340 , Loss nan , Prediction: nan
+Epoch 350 , Loss nan , Prediction: nan
+Epoch 360 , Loss nan , Prediction: nan
+Epoch 370 , Loss nan , Prediction: nan
+Epoch 380 , Loss nan , Prediction: nan
+Epoch 390 , Loss nan , Prediction: nan
+Epoch 400 , Loss nan , Prediction: nan
+Epoch 410 , Loss nan , Prediction: nan
+Epoch 420 , Loss nan , Prediction: nan
+Epoch 430 , Loss nan , Prediction: nan
+Epoch 440 , Loss nan , Prediction: nan
+Epoch 450 , Loss nan , Prediction: nan
+Epoch 460 , Loss nan , Prediction: nan
+Epoch 470 , Loss nan , Prediction: nan
+Epoch 480 , Loss nan , Prediction: nan
+Epoch 490 , Loss nan , Prediction: nan
+Epoch 500 , Loss nan , Prediction: nan
+Epoch 510 , Loss nan , Prediction: nan
+Epoch 520 , Loss nan , Prediction: nan
+Epoch 530 , Loss nan , Prediction: nan
+Epoch 540 , Loss nan , Prediction: nan
+Epoch 550 , Loss nan , Prediction: nan
+Epoch 560 , Loss nan , Prediction: nan
+Epoch 570 , Loss nan , Prediction: nan
+Epoch 580 , Loss nan , Prediction: nan
+Epoch 590 , Loss nan , Prediction: nan
+Epoch 600 , Loss nan , Prediction: nan
+Epoch 610 , Loss nan , Prediction: nan
+Epoch 620 , Loss nan , Prediction: nan
+Epoch 630 , Loss nan , Prediction: nan
+Epoch 640 , Loss nan , Prediction: nan
+Epoch 650 , Loss nan , Prediction: nan
+Epoch 660 , Loss nan , Prediction: nan
+Epoch 670 , Loss nan , Prediction: nan
+Epoch 680 , Loss nan , Prediction: nan
+Epoch 690 , Loss nan , Prediction: nan
+Epoch 700 , Loss nan , Prediction: nan
+Epoch 710 , Loss nan , Prediction: nan
+Epoch 720 , Loss nan , Prediction: nan
+Epoch 730 , Loss nan , Prediction: nan
+Epoch 740 , Loss nan , Prediction: nan
+Epoch 750 , Loss nan , Prediction: nan
+Epoch 760 , Loss nan , Prediction: nan
+Epoch 770 , Loss nan , Prediction: nan
+Epoch 780 , Loss nan , Prediction: nan
+Epoch 790 , Loss nan , Prediction: nan
+Epoch 800 , Loss nan , Prediction: nan
+Epoch 810 , Loss nan , Prediction: nan
+Epoch 820 , Loss nan , Prediction: nan
+Epoch 830 , Loss nan , Prediction: nan
+Epoch 840 , Loss nan , Prediction: nan
+Epoch 850 , Loss nan , Prediction: nan
+Epoch 860 , Loss nan , Prediction: nan
+Epoch 870 , Loss nan , Prediction: nan
+Epoch 880 , Loss nan , Prediction: nan
+Epoch 890 , Loss nan , Prediction: nan
+Epoch 900 , Loss nan , Prediction: nan
+Epoch 910 , Loss nan , Prediction: nan
+Epoch 920 , Loss nan , Prediction: nan
+Epoch 930 , Loss nan , Prediction: nan
+Epoch 940 , Loss nan , Prediction: nan
+Epoch 950 , Loss nan , Prediction: nan
+Epoch 960 , Loss nan , Prediction: nan
+Epoch 970 , Loss nan , Prediction: nan
+Epoch 980 , Loss nan , Prediction: nan
+Epoch 990 , Loss nan , Prediction: nan
+
+Final Attention Weights for 'sat':
+[nan nan nan]
+
+Final Attention Weights for 'sat' (Head 2):
+[nan nan nan]
+
+Final Attention Weights (Head 1):
+[[nan nan nan]
+ [nan nan nan]
+ [nan nan nan]]
+
+Final Attention Weights (Head 2):
+[[nan nan nan]
+ [nan nan nan]
+ [nan nan nan]]

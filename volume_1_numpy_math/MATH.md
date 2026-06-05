@@ -142,3 +142,6 @@ With the incoming variance safely locked at `1.0`, let's plug the hidden dimensi
 `W_deviation = 0.01857`
 
 This number is extremely close to `0.02`. Systems Engineers picked **0.02** because it is the cleanest, fastest rounded number that provides perfect variance stabilization for massive-scale architectures.
+
+## 11. Footnotes & Further Reading
+*   **RoPE Gradients:** The gradients and manual backward pass for Rotary Positional Embeddings (RoPE) are highly complex and not explicitly shown in this document to maintain focus on the core feed-forward and attention mechanisms. For a rigorous derivation of RoPE gradients, please refer to the original RoFormer paper (Su et al., 2021).

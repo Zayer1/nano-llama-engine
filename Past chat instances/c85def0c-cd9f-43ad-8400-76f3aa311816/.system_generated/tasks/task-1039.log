@@ -1,0 +1,14 @@
+Successfully scheduled one-shot timer.
+Expected to fire at: 2026-05-29T14:10:57+07:00
+Prompt: Time is up! Let the user know the 5 minutes are up and ask how they are doing on the 3 questions.
+
+[2026-05-29T14:06:27+07:00] Still waiting. Remaining time: 4m30s
+[2026-05-29T14:06:57+07:00] Still waiting. Remaining time: 4m0s
+[2026-05-29T14:07:27+07:00] Still waiting. Remaining time: 3m30s
+[2026-05-29T14:07:57+07:00] Still waiting. Remaining time: 3m0s
+[2026-05-29T14:08:27+07:00] Still waiting. Remaining time: 2m30s
+[2026-05-29T14:08:57+07:00] Still waiting. Remaining time: 2m0s
+[2026-05-29T14:09:27+07:00] Still waiting. Remaining time: 1m30s
+[2026-05-29T14:09:57+07:00] Still waiting. Remaining time: 1m0s
+[2026-05-29T14:10:27+07:00] Still waiting. Remaining time: 30s
+[2026-05-29T14:10:57+07:00] Timer fired.
