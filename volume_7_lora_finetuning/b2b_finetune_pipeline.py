@@ -6,6 +6,8 @@ from torch.utils.data import Dataset, DataLoader
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch.nn as nn
+from huggingface_hub import HfApi
+from lora_math_from_scratch import LoRALinear
 from lora_math_from_scratch import LoRALinear
 
 class MedicalInstructionDataset(Dataset):
@@ -70,7 +72,8 @@ def prepare_data(model_name="TinyLlama/TinyLlama-1.1B-Chat-v1.0", batch_size=2):
     
     # Load raw data
     print("Loading raw dataset from HuggingFace...")
-    raw_data = load_dataset("lavita/AlpaCare-MedInstruct-52k", split="train[:100]") # Tiny subset for testing
+    # REMOVED the [:100] tiny subset. We are using the full 52k dataset now.
+    raw_data = load_dataset("lavita/AlpaCare-MedInstruct-52k", split="train") 
     
     # Wrap it in our custom PyTorch Dataset
     pytorch_dataset = MedicalInstructionDataset(raw_data, tokenizer)
@@ -185,14 +188,44 @@ def train_lora_model(model, dataloader, epochs=1, lr=3e-4):
             
             print(f"Epoch {epoch+1} | Step {step} | Loss: {loss.item():.4f}")
             
-            # For this pipeline test, we'll break after 3 steps just to prove the engine doesn't crash
-            if step >= 2:
-                print("\nSUCCESS! The engine completed 3 forward and backward passes without crashing.")
-                break
-                
+    print("\nSUCCESS! Engine training complete.")
     return model
 
+def push_to_huggingface(model, repo_id, hf_token):
+    print("\n--- STEP 4: EXTRACTING & PUSHING LORA WEIGHTS ---")
+    
+    # We don't want to upload the massive 1.1B parameter base model.
+    # We ONLY extract the parameters that we trained (Matrix A and Matrix B).
+    lora_weights = {}
+    for name, param in model.named_parameters():
+        if param.requires_grad:
+            lora_weights[name] = param.cpu() # Move to CPU before saving
+            
+    print(f"Extracted {len(lora_weights)} LoRA weight tensors. Saving locally...")
+    torch.save(lora_weights, "custom_lora_medical.pt")
+    
+    print("Connecting to Hugging Face Hub...")
+    api = HfApi(token=hf_token)
+    api.create_repo(repo_id=repo_id, exist_ok=True)
+    
+    api.upload_file(
+        path_or_fileobj="custom_lora_medical.pt",
+        path_in_repo="custom_lora_medical.pt",
+        repo_id=repo_id
+    )
+    print(f"B2B Portfolio Complete! LoRA matrices successfully pushed to: https://huggingface.co/{repo_id}")
+
 if __name__ == "__main__":
-    dataloader, tokenizer = prepare_data()
+    # --- CONFIGURATION ---
+    HF_TOKEN = "YOUR_HUGGINGFACE_TOKEN" # Replace this in Colab!
+    HF_USERNAME = "Zayer1" # Replace with your actual HF username if different
+    REPO_ID = f"{HF_USERNAME}/tinyllama-medical-lora-from-scratch"
+    
+    dataloader, tokenizer = prepare_data(batch_size=4) # Increased batch size for the Colab GPU
     model = load_and_inject_model()
-    trained_model = train_lora_model(model, dataloader)
+    
+    # Train the model (Warning: This will take a few hours on a T4 GPU for 52k rows)
+    trained_model = train_lora_model(model, dataloader, epochs=1)
+    
+    # Push the extracted brain to your portfolio
+    # push_to_huggingface(trained_model, repo_id=REPO_ID, hf_token=HF_TOKEN)
