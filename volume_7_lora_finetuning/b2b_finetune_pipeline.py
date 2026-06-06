@@ -216,8 +216,8 @@ def push_to_huggingface(model, repo_id, hf_token):
     print(f"B2B Portfolio Complete! LoRA matrices successfully pushed to: https://huggingface.co/{repo_id}")
 
 if __name__ == "__main__":
-    # --- CONFIGURATION ---
-    HF_TOKEN = "YOUR_HUGGINGFACE_TOKEN" # Replace this in Colab!
+    # Set to None so the script automatically pulls the token from your notebook_login() session!
+    HF_TOKEN = None
     HF_USERNAME = "Zayer1" # Replace with your actual HF username if different
     REPO_ID = f"{HF_USERNAME}/tinyllama-medical-lora-from-scratch"
     
