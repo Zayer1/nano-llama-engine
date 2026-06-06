@@ -228,4 +228,4 @@ if __name__ == "__main__":
     trained_model = train_lora_model(model, dataloader, epochs=1)
     
     # Push the extracted brain to your portfolio
-    # push_to_huggingface(trained_model, repo_id=REPO_ID, hf_token=HF_TOKEN)
+    push_to_huggingface(trained_model, repo_id=REPO_ID, hf_token=HF_TOKEN)

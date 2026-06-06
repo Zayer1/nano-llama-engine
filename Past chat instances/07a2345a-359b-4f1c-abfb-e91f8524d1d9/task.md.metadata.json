@@ -1,5 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_TASK",
-  "summary": "Task tracker for upgrading the PyTorch Automaton to RoPE (Rotary Position Embeddings) and updating the math documentation.",
-  "updatedAt": "2026-05-26T14:22:51.329157200Z"
-}

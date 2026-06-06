@@ -1,6 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Implementation plan for reorganizing the repository into Volume 1 (NumPy) and Volume 2 (PyTorch), preserving Git history.",
-  "updatedAt": "2026-05-23T12:16:16.479296200Z",
-  "requestFeedback": true
-}

@@ -1,5 +1,0 @@
-[main dedc993] feat: complete Phase 3 with SwiGLU, LayerNorm, and Xavier Initialization
- 4 files changed, 452 insertions(+), 13 deletions(-)
- create mode 100644 core/03_ffn.py
-To https://github.com/Zayer1/transformer-backprop-numpy
-   4fbb309..dedc993  main -> main

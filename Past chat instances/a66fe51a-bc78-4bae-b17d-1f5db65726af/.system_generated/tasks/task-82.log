@@ -1,4 +1,0 @@
-fatal: not under version control, source=core/Projects.code-workspace, destination=volume_1_numpy_math/Projects.code-workspace
-fatal: bad source, source=README.md, destination=volume_1_numpy_math/README.md
-fatal: bad source, source=MATH.md, destination=volume_1_numpy_math/MATH.md
-fatal: bad source, source=weights.npz, destination=volume_1_numpy_math/weights.npz

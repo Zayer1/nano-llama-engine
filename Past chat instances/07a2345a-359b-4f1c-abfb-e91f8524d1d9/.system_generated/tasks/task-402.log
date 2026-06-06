@@ -1,8 +1,0 @@
-PyTorch Automaton Initialized!
-Total Parameters: 558
-
---- INITIATING FORWARD PASS TEST ---
-Input Shape (Batch, Time): torch.Size([2, 3])
-Output Shape (Batch, Time, Vocab_Size): torch.Size([2, 3, 6])
-
-If you see (2, 3, 6) above, the Automaton's tensor calculus is flawless.

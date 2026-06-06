@@ -1,6 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Plan to rip out the legacy 2017 absolute positional embeddings and replace them with RoPE (Rotary Position Embeddings), aligning the architecture perfectly with LLaMA 3.",
-  "updatedAt": "2026-05-26T14:16:02.810981100Z",
-  "requestFeedback": true
-}

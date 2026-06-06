@@ -1,8 +1,0 @@
-commit 151c3e1a51d4415ff80093123d20d78c0f5151a5
-Author: Zayer <papadoom1107@gmail.com>
-Date:   Sat May 30 00:15:28 2026 +0700
-
-    Fix GitHub username in badge
-
- README.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)

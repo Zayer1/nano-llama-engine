@@ -2,3 +2,14 @@
 *.code-workspace
 *.pth
 __pycache__/
+Past chat instances/
+Randoms/
+all_user_inputs.txt
+extract_logs.py
+*.md
+!README.md
+!volume_1_numpy_math/MATH.md
+!volume_1_numpy_math/README.md
+!volume_2_pytorch_automaton/README.md
+!volume_2_pytorch_automaton/adamw_theory_notes.md
+!volume_6_production_api/README.md
