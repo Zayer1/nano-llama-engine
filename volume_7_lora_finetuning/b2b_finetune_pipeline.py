@@ -188,17 +188,6 @@ def train_lora_model(model, dataloader, epochs=1, lr=3e-4):
             
             print(f"Epoch {epoch+1} | Step {step} | Loss: {loss.item():.4f}")
             
-            # --- B2B PORTFOLIO FAST-TRACK ---
-            # Loss stabilizes at ~0.99 around step 4000. 
-            # We break early to beat cloud compute timeouts and push the weights.
-            if step >= 4000:
-                print("Step 4000 reached. Loss has converged. Halting training to push weights!")
-                break
-                
-        if step >= 4000:
-            break
-            
-            
     print("\nSUCCESS! Engine training complete.")
     return model
 
